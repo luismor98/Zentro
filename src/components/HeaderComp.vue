@@ -8,8 +8,8 @@
 	    </div>
 		    <nav class="header-navigation">
 			    <a href="#"> <i class="fa-regular fa-house"></i> Inicion </a>
-			    <a href="#"> <i class="fa-solid fa-magnifying-glass"></i> Explorar </a>
 			    <a href="#"> <i class="fa-regular fa-heart"></i> Favoritos </a>
+				<a href="#"> <i class="fa-solid fa-magnifying-glass"></i> Explorar </a>
 		    </nav>
 	    </div>
     </header>
@@ -27,10 +27,6 @@
 :root {
 	--header-outer-height: 110px;
 	--header-inner-height: 70px;
-	--header-height-difference: calc(
-		var(--header-outer-height) - var(--header-inner-height)
-	);
-	--header-bg: #fff;
 }
 
 .responsive-wrapper {
@@ -48,7 +44,6 @@
     right: 0;
 	display: flex;
 	align-items: center;
-
 	background-color: white;
 	box-shadow: 0 2px 10px 0 rgba(0,0,0, 0.1);
 }
@@ -57,7 +52,6 @@
 	height: var(--header-inner-height);
 	position: sticky;
 	top: 0;
-
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
