@@ -1,7 +1,16 @@
-<script setup></script>
+<script setup>
+  import HeaderComp from "./components/HeaderComp.vue"
+</script>
 
 <template>
-  <h1>Proyecto</h1>
+  <body>
+   <HeaderComp></HeaderComp>
+   <h1>Proyecto</h1>
+  </body>
 </template>
 
-<style scoped></style>
+<style scoped>
+  body{
+    padding-top: 10%;
+  }
+</style>
