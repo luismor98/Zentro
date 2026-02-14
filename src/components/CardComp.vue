@@ -10,9 +10,9 @@
 		</div>
 		<div class="card-divisor"></div>
 		<div class="card-footer">
-			<button class="button2" type="button">
+			<router-link to="/detail"><button class="button2" type="button">
                 <span>Ver</span>
-            </button>
+            </button></router-link>
 		</div>
 	</div>
 </template>

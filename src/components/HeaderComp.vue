@@ -1,4 +1,6 @@
-<script setup></script>
+<script setup>
+
+</script>
 
 <template>
     <header class="header-outer">
@@ -7,10 +9,15 @@
 			<h1>Zentro</h1>
 	    </div>
 		    <nav class="header-navigation">
-			    <a href="#"> <i class="fa-regular fa-house"></i> Inicio </a>
-			    <a href="#"> <i class="fa-regular fa-heart"></i> Favoritos </a>
-				<a href="#"> <i class="fa-solid fa-magnifying-glass"></i> Explorar </a>
+			    <router-link to="/"><a href="#"> <i class="fa-regular fa-house"></i> Inicio </a></router-link>
+			    <router-link to="/profile"><a href="#"> <i class="fa-regular fa-user"></i> Perfil </a></router-link>
+				<router-link to="/"><a href="#"> <i class="fa-solid fa-magnifying-glass"></i> Explorar </a></router-link>
 		    </nav>
+			<router-link to="/login">
+				<button class="button2" type="button">
+                	<span>Registrarse</span>
+            	</button>
+			</router-link>
 	    </div>
     </header>
 </template>
@@ -81,5 +88,21 @@
 	color: inherit;
 	text-decoration: none;
 }
+
+.button2 {
+    --button-background: #1f2e3e;
+    --button-background-hover: #eee;
+    --button-color: #fff;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--button-background);
+    color: var(--button-color);
+    border: none;
+    border-radius: 4px;
+    padding: 6px 12px;
+    cursor: pointer;
+    }
 
 </style>

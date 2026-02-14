@@ -6,7 +6,7 @@
         <div class="sidebar">
             <h1>Zentro</h1>
             <ul>
-                <li><a href="#"> <i class="fa-regular fa-house"></i> Inicio </a></li>
+                <li><router-link to="/"><a href="#"> <i class="fa-regular fa-house"></i> Inicio </a></router-link></li>
 			    <li><a href="#"> <i class="fa-regular fa-heart"></i> Favoritos </a></li>
 				<li><a href="#"> <i class="fa-solid fa-magnifying-glass"></i> Explorar </a></li>
                 <li><a href="#"> <i class="fa-regular fa-user"></i> Perfil </a></li>
@@ -104,9 +104,13 @@
         padding: 2rem;
         border: 1px #1f2e3e solid;
         max-width: 40%;
-        display: inline-flex;
+        display: inline-table;
         align-self: center;
         border-radius: 8px;
+    }
+
+    .profile-card h4{
+        margin-bottom: 1.5rem;
     }
 
     .button2{

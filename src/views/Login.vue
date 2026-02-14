@@ -21,7 +21,7 @@
       <span class="required">Contraseña</span>
     </label>
   </div>
-  <input type="submit" value="Iniciar Sesión" />
+  <input type="submit" value="Iniciar Sesión"> <router-link to="/profile"></router-link> </input>
   <div class="email">
     <a href="#">Olvidates tu Contraseña</a>
   </div>
