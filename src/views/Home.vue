@@ -17,6 +17,9 @@
         </button>
       </form>
     </div>
+    <div class="home-content">
+      <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsam eaque aliquam fugiat placeat doloremque soluta voluptatem dolor pariatur omnis ipsa corrupti error odio minima laborum tempora tenetur repellendus, dignissimos repudiandae id facilis similique at atque beatae sequi. Itaque laboriosam ducimus nam inventore similique ea optio reiciendis nulla laudantium. Reprehenderit id illum, exercitationem delectus molestiae eligendi aspernatur incidunt provident minus. Consequuntur quasi tempora corporis cupiditate voluptatum, est doloribus. Blanditiis saepe aspernatur odit, id consequuntur ut corporis sapiente nostrum perspiciatis quos tempore molestiae laboriosam illum, debitis perferendis quo fugiat laborum, voluptatem repellat repellendus adipisci. Sunt ab consequatur sed excepturi odio veritatis, non ipsa cum! Repellat deleniti molestias nobis id temporibus facilis adipisci, non est quo sequi, perferendis exercitationem ipsum provident pariatur ad numquam expedita amet aliquid inventore velit. Beatae tempore quis quia id! Sit commodi possimus magni quas sunt similique, sed aut excepturi velit aperiam, sapiente aliquid. Minima tempora quasi voluptatem incidunt. Molestiae officiis corporis ipsum aliquam, obcaecati voluptatum doloremque dicta consequuntur repudiandae animi reprehenderit cupiditate necessitatibus expedita et voluptate non iste! Placeat dicta, consectetur alias modi fuga unde cum eveniet voluptatum dolorum, est officia laudantium dolore! Deserunt repellat autem a placeat, accusamus ut sequi rem qui, totam animi tempora necessitatibus rerum.</p>
+    </div>
     <FooterComp></FooterComp>
   </div>
 </template>

@@ -26,7 +26,7 @@
             <div class="profile-card">
                 <h4>¿Tienes un Emprendimiento?</h4>
                 <button class="button2" type="button">
-                <span>Registralo</span>
+                <span>Registrar</span>
                 </button>
             </div>
         </div>
@@ -123,6 +123,6 @@
     border-radius: 4px;
     padding: 6px 12px;
     cursor: pointer;
-  }
+    }
 
 </style>
