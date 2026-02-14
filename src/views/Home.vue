@@ -1,7 +1,7 @@
 <script setup>
   import HeaderComp from "../components/HeaderComp.vue"
   import FooterComp from "../components/FooterComp.vue"
-  import CardComp from "../components/FooterComp.vue"
+  import CardComp from "../components/CardComp.vue"
 </script>
 
 <template>
@@ -18,8 +18,11 @@
           </button>
         </form>
       </div>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident, vero? Molestias enim nulla, minus nostrum minima adipisci delectus expedita corporis dicta! At non quo pariatur, illum, tempore qui ad enim accusantium illo in necessitatibus animi asperiores nam nemo repudiandae culpa unde. Similique itaque quaerat doloribus voluptatem eligendi, corrupti provident temporibus iusto tempore labore odio perferendis quas, repellat, voluptate obcaecati sit officiis nostrum nemo. Obcaecati neque officiis alias mollitia voluptas distinctio assumenda vero et, architecto quasi aliquid vitae unde dolorum? Earum culpa illo corrupti itaque mollitia laborum similique, modi nesciunt quisquam blanditiis hic exercitationem assumenda perferendis dolorum fugiat, eligendi debitis quae, reiciendis ipsum doloribus animi? In, excepturi sunt ipsam corporis, non voluptatum at accusantium doloremque labore minus quod! Magni doloribus voluptate molestias voluptas, nulla facere sint accusantium natus modi veritatis ipsam omnis delectus dolore? Quaerat nostrum aut optio eum. Obcaecati aspernatur quibusdam sapiente enim dolorem dolor, doloremque consectetur. Nisi odio beatae inventore commodi quidem id ratione nihil. Perspiciatis perferendis similique consectetur fuga ullam labore deserunt aut est nisi! Eaque eius ullam praesentium. Minima eum nesciunt dignissimos ipsum, doloribus sint eius autem consequuntur? Dolor aliquid sint quas nisi! Labore nostrum quo non neque sapiente, ab eaque. Mollitia nulla soluta aut quidem ducimus.
-      </p>
+      <div class="card-container">
+        <CardComp></CardComp>
+        <CardComp></CardComp>
+        <CardComp></CardComp>
+      </div>
     </div>
     <footer> <FooterComp></FooterComp> </footer>
   </div>
@@ -96,12 +99,11 @@
     background-color: var(--button-background-hover);
   }
 
-  .card-list {
-	width: 90%;
-	max-width: 400px;
-  position: absolute;
-  align-content: center;
-  text-align: center;
-  display: flex;
-}
+  .card-container{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+  }
+
 </style>
