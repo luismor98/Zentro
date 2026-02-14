@@ -5,37 +5,57 @@
 </script>
 
 <template>
-  <div class="grip-main">
-    <HeaderComp></HeaderComp>
-    <div class="searchbox-bar">
-      <h2 class="title">Conecta con tu Ciudad</h2>
-      <p>Descubre emprendimientos verificados cerca de ti</p>
-      <form onsubmit="#;" role="search">
-        <input type="serach" class="search-input" id="search-input" name="search-input" placeholder="Buscar...">
-        <button class="button" type="button">
-          <span>Buscar</span>
-        </button>
-      </form>
+  <div class="grid-main">
+    <nav>  <HeaderComp></HeaderComp> </nav>
+    <div class="main-content">   
+      <div class="searchbox-bar">
+        <h2 class="title">Conecta con tu Ciudad</h2>
+        <p>Descubre emprendimientos verificados cerca de ti</p>
+        <form onsubmit="#;" role="search">
+          <input type="serach" class="search-input" id="search-input" name="search-input" placeholder="Buscar...">
+          <button class="button" type="button">
+            <span>Buscar</span>
+          </button>
+        </form>
+      </div>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident, vero? Molestias enim nulla, minus nostrum minima adipisci delectus expedita corporis dicta! At non quo pariatur, illum, tempore qui ad enim accusantium illo in necessitatibus animi asperiores nam nemo repudiandae culpa unde. Similique itaque quaerat doloribus voluptatem eligendi, corrupti provident temporibus iusto tempore labore odio perferendis quas, repellat, voluptate obcaecati sit officiis nostrum nemo. Obcaecati neque officiis alias mollitia voluptas distinctio assumenda vero et, architecto quasi aliquid vitae unde dolorum? Earum culpa illo corrupti itaque mollitia laborum similique, modi nesciunt quisquam blanditiis hic exercitationem assumenda perferendis dolorum fugiat, eligendi debitis quae, reiciendis ipsum doloribus animi? In, excepturi sunt ipsam corporis, non voluptatum at accusantium doloremque labore minus quod! Magni doloribus voluptate molestias voluptas, nulla facere sint accusantium natus modi veritatis ipsam omnis delectus dolore? Quaerat nostrum aut optio eum. Obcaecati aspernatur quibusdam sapiente enim dolorem dolor, doloremque consectetur. Nisi odio beatae inventore commodi quidem id ratione nihil. Perspiciatis perferendis similique consectetur fuga ullam labore deserunt aut est nisi! Eaque eius ullam praesentium. Minima eum nesciunt dignissimos ipsum, doloribus sint eius autem consequuntur? Dolor aliquid sint quas nisi! Labore nostrum quo non neque sapiente, ab eaque. Mollitia nulla soluta aut quidem ducimus.
+      </p>
     </div>
-    <div class="home-content">
-      <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsam eaque aliquam fugiat placeat doloremque soluta voluptatem dolor pariatur omnis ipsa corrupti error odio minima laborum tempora tenetur repellendus, dignissimos repudiandae id facilis similique at atque beatae sequi. Itaque laboriosam ducimus nam inventore similique ea optio reiciendis nulla laudantium. Reprehenderit id illum, exercitationem delectus molestiae eligendi aspernatur incidunt provident minus. Consequuntur quasi tempora corporis cupiditate voluptatum, est doloribus. Blanditiis saepe aspernatur odit, id consequuntur ut corporis sapiente nostrum perspiciatis quos tempore molestiae laboriosam illum, debitis perferendis quo fugiat laborum, voluptatem repellat repellendus adipisci. Sunt ab consequatur sed excepturi odio veritatis, non ipsa cum! Repellat deleniti molestias nobis id temporibus facilis adipisci, non est quo sequi, perferendis exercitationem ipsum provident pariatur ad numquam expedita amet aliquid inventore velit. Beatae tempore quis quia id! Sit commodi possimus magni quas sunt similique, sed aut excepturi velit aperiam, sapiente aliquid. Minima tempora quasi voluptatem incidunt. Molestiae officiis corporis ipsum aliquam, obcaecati voluptatum doloremque dicta consequuntur repudiandae animi reprehenderit cupiditate necessitatibus expedita et voluptate non iste! Placeat dicta, consectetur alias modi fuga unde cum eveniet voluptatum dolorum, est officia laudantium dolore! Deserunt repellat autem a placeat, accusamus ut sequi rem qui, totam animi tempora necessitatibus rerum.</p>
-    </div>
-    <FooterComp></FooterComp>
+    <footer> <FooterComp></FooterComp> </footer>
   </div>
 </template>
 
 <style scoped>
-  .grip-main{
+  
+  .grid-main{
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    min-height: 100vh;
+    grid-template-areas: 
+    "navbar"
+    "content"
+    "footer";
+  }
+
+  .grid-main nav{
+    grid-area: navbar;
+  }
+
+  .grid-main footer{
+    grid-area: footer;
+    position: relative;
+    bottom: 0;
+  }
+
+  .main-content{
+    grid-area: content;
     padding-top: 6.5rem;
-    padding-bottom: 10%;
   }
 
   .searchbox-bar{
     background-color: lightgray;
     width: 100%;
     min-height: 250px;
-    right: 0;
-    position: absolute;
     align-content: center;
     text-align: center;
   }
