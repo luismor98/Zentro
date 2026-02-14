@@ -7,7 +7,7 @@
 			<h1>Zentro</h1>
 	    </div>
 		    <nav class="header-navigation">
-			    <a href="#"> <i class="fa-regular fa-house"></i> Inicion </a>
+			    <a href="#"> <i class="fa-regular fa-house"></i> Inicio </a>
 			    <a href="#"> <i class="fa-regular fa-heart"></i> Favoritos </a>
 				<a href="#"> <i class="fa-solid fa-magnifying-glass"></i> Explorar </a>
 		    </nav>

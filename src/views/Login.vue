@@ -2,7 +2,7 @@
 </script>
 
 <template>
-    <div class="grid-container">
+    <div class="grid-login">
         <form method="get" action="javascript: void(0);" id="login-form" class="login-form" autocomplete="off" role="main">
   <h1 class="a11y-hidden">Login Form</h1>
   <div>
@@ -42,7 +42,7 @@
 </template>
 
 <style>
-    .grid-container{
+    .grid-login{
         height: 100vh;
         display: grid;
         justify-items: center;
