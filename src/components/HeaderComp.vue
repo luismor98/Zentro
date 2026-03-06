@@ -32,8 +32,8 @@ function handleLogout() {
 
         <template v-else>
           <div class="user-menu" @click="dropdownOpen = !dropdownOpen">
-            <div class="user-avatar">{{ user.user?.name?.charAt(0).toUpperCase() }}</div>
-            <span class="user-name">{{ user.user?.name }}</span>
+            <div class="user-avatar">{{ user.user?.user_metadata?.name?.charAt(0).toUpperCase() }}</div>
+            <span class="user-name">{{ user.user?.user_metadata?.name }}</span>
             <i class="fa-solid fa-chevron-down chevron" :class="{ rotated: dropdownOpen }"></i>
 
             <div class="dropdown" v-if="dropdownOpen">

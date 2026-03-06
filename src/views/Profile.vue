@@ -43,16 +43,16 @@ function handleLogout() {
       <div class="profile-header">
         <div class="avatar-wrapper">
           <div class="avatar-circle">
-            <span>{{ user.user?.name?.charAt(0).toUpperCase() }}</span>
+          <span>{{ user.user?.user_metadata?.name?.charAt(0).toUpperCase() }}</span>
           </div>
           <button class="avatar-edit" aria-label="Cambiar foto">
             <i class="fa-solid fa-camera"></i>
           </button>
         </div>
         <div class="profile-info">
-          <h1 class="profile-name">{{ user.user?.name }}</h1>
+        <h1 class="profile-name">{{ user.user?.user_metadata?.name }}</h1>
           <p class="profile-email">{{ user.user?.email }}</p>
-          <span class="badge-verified" v-if="user.user?.verified">
+          <span class="badge-verified" v-if="user.user?.user_metadata?.verified">
             <i class="fa-solid fa-check"></i> Verificado
           </span>
           <span class="badge-pending" v-else>

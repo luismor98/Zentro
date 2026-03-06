@@ -9,11 +9,11 @@ import BaseButton from '../components/BaseButton.vue'
 const router = useRouter()
 const { register } = useAuth()
 
-const name         = ref('')
-const email        = ref('')
-const password     = ref('')
-const error        = ref('')
-const loading      = ref(false)
+const name     = ref('')
+const email    = ref('')
+const password = ref('')
+const error    = ref('')
+const loading  = ref(false)
 
 async function handleRegister() {
   error.value = ''
@@ -26,10 +26,16 @@ async function handleRegister() {
     return
   }
   loading.value = true
-  await new Promise(r => setTimeout(r, 900))
-  register({ name: name.value, email: email.value })
-  router.push({ name: 'profile' })
-  loading.value = false
+  try {
+    await register(name.value, email.value, password.value)
+    // Supabase envía un email de confirmación
+    // Por ahora redirigimos al home con un mensaje
+    router.push('/profile')
+  } catch (e) {
+    error.value = e.message || 'Error al crear la cuenta. Intenta de nuevo.'
+  } finally {
+    loading.value = false
+  }
 }
 </script>
 
@@ -37,7 +43,6 @@ async function handleRegister() {
   <div class="register-page">
     <div class="register-card">
 
-      <!-- ✅ Componente reutilizable -->
       <ZentroLogo size="lg" rest-color="#333333" />
 
       <h1 class="reg-title">Crea tu cuenta</h1>
@@ -49,7 +54,6 @@ async function handleRegister() {
           <i class="fa-solid fa-circle-exclamation"></i> {{ error }}
         </div>
 
-        <!-- ✅ Componentes reutilizables -->
         <BaseInput
           v-model="name"
           id="name"
@@ -82,13 +86,7 @@ async function handleRegister() {
           :required="true"
         />
 
-        <!-- ✅ Componente reutilizable -->
-        <BaseButton
-          type="submit"
-          variant="primary"
-          :full="true"
-          :loading="loading"
-        >
+        <BaseButton type="submit" variant="primary" :full="true" :loading="loading">
           Crear cuenta
         </BaseButton>
 
@@ -174,8 +172,5 @@ async function handleRegister() {
   font-weight: 500;
   text-decoration: none;
 }
-
-.reg-switch a:hover {
-  text-decoration: underline;
-}
+.reg-switch a:hover { text-decoration: underline; }
 </style>
