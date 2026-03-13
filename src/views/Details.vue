@@ -1,32 +1,61 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import PageLayout from '../components/PageLayout.vue'
 import { useAuth } from '../stores/auth.js'
+import { emprendimientosService } from '../services/emprendimientosService.js'
 
 const { user } = useAuth()
-const liked = ref(false)
+const route  = useRoute()
+const router = useRouter()
 
-// Datos de ejemplo — en el futuro vendrán de tu API según el :id de la ruta
-const emprendimiento = ref({
-  name: 'Panadería El Trigo',
-  category: 'Alimentos',
-  rating: 5,
-  description: 'Somos una panadería artesanal ubicada en el corazón de Valera, Trujillo. Ofrecemos pan fresco horneado diariamente con ingredientes naturales y recetas tradicionales venezolanas. Más de 10 años llevando sabor y frescura a las familias de la ciudad.',
-  address: 'Av. Bolívar, Centro, Valera, Trujillo',
-  phone: '+58 271 000 0000',
-  schedule: 'Lunes a Sábado: 6am – 6pm',
-  image: 'https://kajabi-storefronts-production.kajabi-cdn.com/kajabi-storefronts-production/themes/2160462672/assets/placeholder.png?1746171717218425',
+const emprendimiento = ref(null)
+const loading        = ref(true)
+const error          = ref(null)
+const liked          = ref(false)
+
+onMounted(async () => {
+  const id = Number(route.params.id)
+  if (!id) {
+    router.push({ name: 'home' })
+    return
+  }
+  try {
+    emprendimiento.value = await emprendimientosService.getById(id)
+  } catch (e) {
+    error.value = 'No se pudo cargar este emprendimiento.'
+  } finally {
+    loading.value = false
+  }
 })
 </script>
 
 <template>
   <PageLayout>
 
-    <main class="detail-main">
+    <!-- Cargando -->
+    <div v-if="loading" class="state-center">
+      <i class="fa-solid fa-spinner fa-spin"></i>
+      <p>Cargando emprendimiento...</p>
+    </div>
+
+    <!-- Error -->
+    <div v-else-if="error" class="state-center state-error">
+      <i class="fa-solid fa-circle-exclamation"></i>
+      <p>{{ error }}</p>
+      <router-link to="/" class="btn-back">Volver al inicio</router-link>
+    </div>
+
+    <!-- Contenido real -->
+    <main v-else class="detail-main">
 
       <!-- Imagen de portada -->
       <div class="cover-wrapper">
-        <img :src="emprendimiento.image" :alt="emprendimiento.name" class="cover-img" />
+        <img
+          :src="emprendimiento.image_url || 'https://placehold.co/1200x400?text=Sin+imagen'"
+          :alt="emprendimiento.name"
+          class="cover-img"
+        />
         <div class="cover-overlay">
           <span class="cat-badge">{{ emprendimiento.category }}</span>
         </div>
@@ -34,18 +63,17 @@ const emprendimiento = ref({
 
       <div class="detail-body responsive-wrapper">
 
-        <!-- Encabezado de detalle -->
+        <!-- Encabezado -->
         <div class="detail-header">
           <div class="detail-title-group">
             <h1 class="detail-title">{{ emprendimiento.name }}</h1>
             <div class="detail-stars">
               <i v-for="i in 5" :key="i"
-                :class="i <= emprendimiento.rating ? 'fa-solid fa-star' : 'fa-regular fa-star'"
+                :class="i <= (emprendimiento.rating || 0) ? 'fa-solid fa-star' : 'fa-regular fa-star'"
               ></i>
             </div>
           </div>
           <div class="detail-actions">
-            <!-- Favorito solo si está logueado -->
             <button
               v-if="user.isLoggedIn"
               class="fav-btn"
@@ -69,7 +97,7 @@ const emprendimiento = ref({
           <!-- Descripción -->
           <div class="detail-left">
             <h2 class="subsection-title">Descripción</h2>
-            <p class="detail-desc">{{ emprendimiento.description }}</p>
+            <p class="detail-desc">{{ emprendimiento.description || 'Sin descripción disponible.' }}</p>
           </div>
 
           <!-- Info de contacto -->
@@ -77,29 +105,28 @@ const emprendimiento = ref({
             <div class="info-card">
               <h3 class="info-card-title">Información de contacto</h3>
               <ul class="info-list">
-                <li>
+                <li v-if="emprendimiento.address">
                   <i class="fa-solid fa-location-dot"></i>
                   <span>{{ emprendimiento.address }}</span>
                 </li>
-                <li>
+                <li v-if="emprendimiento.phone">
                   <i class="fa-solid fa-phone"></i>
                   <a :href="`tel:${emprendimiento.phone}`">{{ emprendimiento.phone }}</a>
                 </li>
-                <li>
+                <li v-if="emprendimiento.schedule">
                   <i class="fa-regular fa-clock"></i>
                   <span>{{ emprendimiento.schedule }}</span>
                 </li>
               </ul>
 
-              <!-- CTA para visitantes -->
               <div v-if="!user.isLoggedIn" class="info-cta">
                 <p>Crea tu cuenta para guardar este emprendimiento y recibir actualizaciones.</p>
                 <router-link to="/register" class="btn-primary-full">Crear cuenta gratis</router-link>
               </div>
             </div>
           </aside>
-        </div>
 
+        </div>
       </div>
     </main>
 
@@ -329,4 +356,37 @@ const emprendimiento = ref({
     height: 220px;
   }
 }
+
+/* ══ Estados ══ */
+.state-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 6rem 2rem;
+  color: var(--color-muted);
+  text-align: center;
+}
+
+.state-center i { font-size: 2.5rem; }
+.state-center p { font-size: 0.95rem; }
+
+.state-error i { color: #ef4444; }
+
+.btn-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  padding: 0.65rem 1.4rem;
+  border-radius: var(--radius-full);
+  background: var(--color-navy);
+  color: #fff;
+  text-decoration: none;
+  font-size: 0.88rem;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+.btn-back:hover { background: #220a6b; }
 </style>

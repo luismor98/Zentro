@@ -1,27 +1,38 @@
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import PageLayout from '../components/PageLayout.vue'
 import CardComp    from '../components/CardComp.vue'
 import { useAuth } from '../stores/auth.js'
+import { emprendimientosService } from '../services/emprendimientosService.js'
 
 const { user } = useAuth()
-const searchQuery = ref('')
+const searchQuery    = ref('')
 const activeCategory = ref('Todos')
+const emprendimientos = ref([])
+const categories      = ref(['Todos'])
+const loading         = ref(true)
+const error           = ref('')
 
-const categories = ['Todos', 'Alimentos', 'Ropa', 'Tecnología', 'Jardín', 'Fotografía']
-
-const emprendimientos = ref([
-  { id: 1, name: 'Panadería El Trigo',      category: 'Alimentos',   rating: 5 },
-  { id: 2, name: 'Costura & Moda Valera',   category: 'Ropa',        rating: 4 },
-  { id: 3, name: 'TechRepair VLR',          category: 'Tecnología',  rating: 4 },
-  { id: 4, name: 'Helados Artesanales',     category: 'Alimentos',   rating: 5 },
-  { id: 5, name: 'Plantas & Vivero',        category: 'Jardín',      rating: 3 },
-  { id: 6, name: 'Studio Foto Valera',      category: 'Fotografía',  rating: 5 },
-])
+onMounted(async () => {
+  try {
+    const [data, cats] = await Promise.all([
+      emprendimientosService.getAll(),
+      emprendimientosService.getCategories()
+    ])
+    emprendimientos.value = data
+    categories.value = cats
+  } catch (e) {
+    error.value = 'No se pudieron cargar los emprendimientos.'
+  } finally {
+    loading.value = false
+  }
+})
 
 const filtered = computed(() => {
   return emprendimientos.value.filter(e => {
-    const matchQ = !searchQuery.value || e.name.toLowerCase().includes(searchQuery.value.toLowerCase()) || e.category.toLowerCase().includes(searchQuery.value.toLowerCase())
+    const matchQ = !searchQuery.value ||
+      e.name.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
+      e.category.toLowerCase().includes(searchQuery.value.toLowerCase())
     const matchCat = activeCategory.value === 'Todos' || e.category === activeCategory.value
     return matchQ && matchCat
   })
@@ -90,7 +101,19 @@ function setCategory(cat) {
           <span class="section-count">{{ filtered.length }} encontrados</span>
         </div>
 
-        <div class="card-grid" v-if="filtered.length > 0">
+        <!-- Cargando -->
+        <div v-if="loading" class="empty-state">
+          <i class="fa-solid fa-spinner fa-spin"></i>
+          <p>Cargando emprendimientos...</p>
+        </div>
+
+        <!-- Error -->
+        <div v-else-if="error" class="empty-state">
+          <i class="fa-solid fa-circle-exclamation" style="color:#ef4444"></i>
+          <p>{{ error }}</p>
+        </div>
+
+        <div v-else-if="filtered.length > 0" class="card-grid">
           <CardComp
             v-for="emp in filtered"
             :key="emp.id"
@@ -98,6 +121,7 @@ function setCategory(cat) {
             :name="emp.name"
             :category="emp.category"
             :rating="emp.rating"
+            :image="emp.image_url"
           />
         </div>
 
@@ -181,6 +205,7 @@ function setCategory(cat) {
   color: var(--color-muted);
   font-size: 0.9rem;
   flex-shrink: 0;
+  padding-right: 1rem;
 }
 
 .search-input {
@@ -194,6 +219,8 @@ function setCategory(cat) {
   background: transparent;
   color: var(--color-dark);
   min-width: 0;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 .search-input::placeholder { color: #aaa; }
@@ -332,10 +359,11 @@ function setCategory(cat) {
 }
 
 .empty-state i {
-  font-size: 2.5rem;
+  font-size: 7rem;
   margin-bottom: 1rem;
   display: block;
   color: #ddd;
+  margin: 1rem auto 1rem;
 }
 
 .empty-state p { margin-bottom: 1.25rem; font-size: 0.9rem; }

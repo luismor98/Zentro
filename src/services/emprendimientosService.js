@@ -59,6 +59,33 @@ export const emprendimientosService = {
   },
 
   /**
+   * Actualizar un emprendimiento existente
+   */
+  async update(id, campos) {
+    const { data, error } = await supabase
+      .from('emprendimientos')
+      .update(campos)
+      .eq('id', id)
+      .select()
+      .single()
+
+    if (error) throw error
+    return data
+  },
+
+  /**
+   * Eliminar un emprendimiento
+   */
+  async delete(id) {
+    const { error } = await supabase
+      .from('emprendimientos')
+      .delete()
+      .eq('id', id)
+
+    if (error) throw error
+  },
+
+  /**
    * Obtener las categorías únicas disponibles
    */
   async getCategories() {
