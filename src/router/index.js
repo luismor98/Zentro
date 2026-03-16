@@ -1,9 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Home     from '../views/Home.vue'
-import Login    from '../views/Login.vue'
-import Register from '../views/Register.vue'
-import Profile  from '../views/Profile.vue'
-import Details  from '../views/Details.vue'
+import Home      from '../views/Home.vue'
+import Login     from '../views/Login.vue'
+import Register  from '../views/Register.vue'
+import Profile   from '../views/Profile.vue'
+import Details   from '../views/Details.vue'
+import NotFound  from '../views/NotFound.vue'
 import { supabase } from '../services/supabase.js'
 
 const router = createRouter({
@@ -39,6 +40,11 @@ const router = createRouter({
       path: '/detail/:id?',
       name: 'detail',
       component: Details,
+    },
+    {
+      path: '/:pathMatch(.*)*',
+      name: 'not-found',
+      component: NotFound,
     },
   ],
 })
